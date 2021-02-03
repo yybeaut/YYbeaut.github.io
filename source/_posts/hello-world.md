@@ -1,5 +1,5 @@
 ---
-title: Hello World
+title: 基本设置
 toc: true
 ---
 
@@ -11,13 +11,23 @@ toc: true
 
 -->
 
+`$ sudo npm install -g hexo`
+本地安装 hexo
+
 本地 clone 地址：
 
 ```
 $ git clone git@github.com:yybeaut/yybeaut.github.io.git
 ```
 
-在 themes 文件夹下复制 maupassant
+**敲重点**
+**切换到 hexos 分支上**
+
+主题：大道至简
+`https://www.haomwei.com/technology/maupassant-hexo.html`
+[主题配置](https://www.yyyyuans.com/themeSet/)
+
+完成后：
 `$ npm i`
 
 #### 基本维护命令
