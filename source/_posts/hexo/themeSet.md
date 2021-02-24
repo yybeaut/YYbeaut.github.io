@@ -1,9 +1,21 @@
 ---
-title: 主题配置
-toc: true
+title: hexo主题配置
+toc:
+tag: hexo
 ---
 
+主题：大道至简
+`https://www.haomwei.com/technology/maupassant-hexo.html`
+
+<!-- [主题配置](https://www.yyyyuans.com/hexo/themeSet/) -->
+
 在 maupassant 下 \_config.yml 更新下列内容
+此为 maupassant 主题相关配置
+现用主题是别的哦～
+
+<!-- more -->
+
+——————————
 
 ```
 disqus:

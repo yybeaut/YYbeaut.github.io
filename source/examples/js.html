@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arrayToCSV = function (arr, deli = ",") {
+            return arr.map((v) => {
+                return v.map((x) => {
+                    return `${x}`;
+                }).join(deli);
+            }).join(",");
+        };
+        console.log(arrayToCSV([['a', 'b'], ['c', 'd']]));
+        // let arrayToCSV = [['a', 'b'], ['c', 'd']];
+        // let an = arrayToCSV.map(v=> {
+        //     return v.map(x=> {
+        //         return `${x}`;
+        //     }).join(',')
+        // }).join(',')
+        // console.log(an)
+    </script>
+</body>
+</html>

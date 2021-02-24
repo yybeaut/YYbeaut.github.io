@@ -1,6 +1,7 @@
 ---
-title: 基本设置
+title: hexo基本设置
 toc: true
+tag: hexo
 ---
 
 欢迎来到袁园的博客～
@@ -10,6 +11,7 @@ toc: true
 [知乎](https://www.zhihu.com/) -关键词连接-
 
 -->
+<!-- more -->
 
 `$ sudo npm install -g hexo`
 本地安装 hexo
@@ -23,9 +25,15 @@ $ git clone git@github.com:yybeaut/yybeaut.github.io.git
 **敲重点**
 **切换到 hexos 分支上**
 
-主题：大道至简
+<!-- 主题：大道至简
 `https://www.haomwei.com/technology/maupassant-hexo.html`
-[主题配置](https://www.yyyyuans.com/themeSet/)
+[主题配置](https://www.yyyyuans.com/hexo/themeSet/) -->
+
+主题：yilia
+
+<!-- `https://github.com/litten/hexo-theme-yilia` -->
+
+[https://github.com/litten/hexo-theme-yilia 主题配置](https://github.com/litten/hexo-theme-yilia)
 
 完成后：
 `$ npm i`
