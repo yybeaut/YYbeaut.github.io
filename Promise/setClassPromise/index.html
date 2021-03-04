@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | YUANYUAN-BLOG</title>
+  <title>使用class手写一个promise | YUANYUAN-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="日常分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YUANYUAN-BLOG">
-<meta property="og:url" content="http://example.com/archives/2021/">
+  <meta name="description" content="基本实现promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用class手写一个promise">
+<meta property="og:url" content="http://example.com/Promise/setClassPromise/">
 <meta property="og:site_name" content="YUANYUAN-BLOG">
-<meta property="og:description" content="日常分享">
+<meta property="og:description" content="基本实现promise">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-04T07:33:54.111Z">
+<meta property="article:modified_time" content="2021-03-04T11:47:28.382Z">
 <meta property="article:author" content="xxx">
+<meta property="article:tag" content="promise">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="YUANYUAN-BLOG" type="application/atom+xml">
@@ -152,36 +155,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Promise/setClassPromise" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/Promise/setClassPromise/" class="archive-article-date">
-  	<time datetime="2021-03-04T07:33:54.111Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/Promise/setClassPromise/">使用class手写一个promise</a>
+    <h1 class="article-title" itemprop="name">
+      使用class手写一个promise
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/Promise/setClassPromise/" class="archive-article-date">
+  	<time datetime="2021-03-04T07:33:54.111Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基本实现promise</p>
+<a id="more"></a>
+<h2 id="不能链式调用"><a href="#不能链式调用" class="headerlink" title="不能链式调用"></a>不能链式调用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promise</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> pending = <span class="string">&#x27;pending&#x27;</span>;</span><br><span class="line">    <span class="keyword">static</span> onFulfilled = <span class="string">&#x27;fulfilled&#x27;</span>;</span><br><span class="line">    <span class="keyword">static</span> onRejected = <span class="string">&#x27;rejected&#x27;</span>;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">executor</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.pending; <span class="comment">// 默人状态</span></span><br><span class="line">        <span class="built_in">this</span>.value = <span class="literal">undefined</span>; <span class="comment">// 成功的默认值</span></span><br><span class="line">        <span class="built_in">this</span>.reason = <span class="literal">undefined</span>; <span class="comment">// 失败的默认值</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 存储then中传入的参数  数组是因为then方法可以多次调用</span></span><br><span class="line">        <span class="built_in">this</span>.callbacks = [];</span><br><span class="line">        executor(<span class="built_in">this</span>._resolve.bind(<span class="built_in">this</span>), <span class="built_in">this</span>._reject.bind(<span class="built_in">this</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">_resolve</span>(<span class="params">value</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.onFulfilled; <span class="comment">// 将状态设置为成功</span></span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">        <span class="built_in">this</span>.callbacks.forEach(<span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.playHandler(arr);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">_reject</span>(<span class="params">reason</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.onRejected; <span class="comment">// 将状态设置为失败</span></span><br><span class="line">        <span class="built_in">this</span>.reason = reason;</span><br><span class="line">        <span class="built_in">this</span>.callbacks.forEach(<span class="function"><span class="params">arr</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.playHandler(arr);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">playHandler</span>(<span class="params">callback</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;</span><br><span class="line">            onFulfilled,</span><br><span class="line">            onRejected</span><br><span class="line">        &#125; = callback;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.status === <span class="built_in">Promise</span>.onFulfilled &amp;&amp; onFulfilled) &#123;</span><br><span class="line">            onFulfilled(<span class="built_in">this</span>.value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.status === <span class="built_in">Promise</span>.onRejected &amp;&amp; onRejected) &#123;</span><br><span class="line">            onRejected(<span class="built_in">this</span>.reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">then</span>(<span class="params">onFulfilled, onRejected</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 这里可以理解为在注册事件</span></span><br><span class="line">        <span class="comment">// 也就是将需要执行的回调函数存储起来</span></span><br><span class="line">        <span class="built_in">this</span>.callbacks.push(&#123;</span><br><span class="line">            onFulfilled,</span><br><span class="line">            onRejected</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 实例例子</span></span><br><span class="line"><span class="keyword">let</span> success = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (success) &#123;</span><br><span class="line">            resolve(<span class="string">&#x27;righht&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(<span class="string">&#x27;error&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data, <span class="string">&#x27;data&#x27;</span>);</span><br><span class="line">&#125;, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error, <span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// then的第二个参数执行错误</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * .then(()=&gt;&#123;&#125;,()=&gt;&#123;&#125;)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="能链式调用"><a href="#能链式调用" class="headerlink" title="能链式调用"></a>能链式调用</h2><p>链式调用原理本质是then 返回了一个new Promise()对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promise</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> pending = <span class="string">&#x27;pending&#x27;</span>;</span><br><span class="line">    <span class="keyword">static</span> onFulfilled = <span class="string">&#x27;fulfilled&#x27;</span>;</span><br><span class="line">    <span class="keyword">static</span> onRejected = <span class="string">&#x27;rejected&#x27;</span>;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">executor</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.pending; <span class="comment">// 默人状态</span></span><br><span class="line">        <span class="built_in">this</span>.value = <span class="literal">undefined</span>; <span class="comment">// 成功的默认值</span></span><br><span class="line">        <span class="built_in">this</span>.reason = <span class="literal">undefined</span>; <span class="comment">// 失败的默认值</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 存储then中传入的参数  数组是因为then方法可以多次调用</span></span><br><span class="line">        <span class="built_in">this</span>.callbacks = [];</span><br><span class="line">        executor(<span class="built_in">this</span>._resolve.bind(<span class="built_in">this</span>), <span class="built_in">this</span>._reject.bind(<span class="built_in">this</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">_resolve</span>(<span class="params">value</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 处理onFulfilled 执行的是一个promise时的情况</span></span><br><span class="line">        <span class="keyword">if</span> (value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>) &#123;</span><br><span class="line">            <span class="comment">//value instanceof Promise 当前的（value）promise不是第一个promise 是then方法返回值中的 promise（要处理的promise）</span></span><br><span class="line">            <span class="comment">// 获取到value（promise）中的 value ：传递一个函数作为value.then()的 onFulfilled参数</span></span><br><span class="line">            <span class="comment">// value内部会执行这个函数，当前promise的value赋值为value（promise）的value</span></span><br><span class="line">            <span class="comment">// 【value：promise】.then(【this._resolve.bind(this)：value】, 【this._reject.bind(this)：value】)</span></span><br><span class="line">            value.then(<span class="built_in">this</span>._resolve.bind(<span class="built_in">this</span>), <span class="built_in">this</span>._reject.bind(<span class="built_in">this</span>))</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.onFulfilled; <span class="comment">// 将状态设置为成功</span></span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">        <span class="built_in">this</span>.callbacks.forEach(<span class="function"><span class="params">arr</span> =&gt;</span> <span class="built_in">this</span>.playHandler(arr));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">_reject</span>(<span class="params">reason</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (reason <span class="keyword">instanceof</span> <span class="built_in">Promise</span>) &#123;</span><br><span class="line">            reason.then(<span class="built_in">this</span>._resolve.bind(<span class="built_in">this</span>), <span class="built_in">this</span>._reject.bind(<span class="built_in">this</span>));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.status = <span class="built_in">Promise</span>.onRejected; <span class="comment">// 将状态设置为失败</span></span><br><span class="line">        <span class="built_in">this</span>.reason = reason;</span><br><span class="line">        <span class="built_in">this</span>.callbacks.forEach(<span class="function"><span class="params">arr</span> =&gt;</span> <span class="built_in">this</span>.playHandler(arr));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">playHandler</span>(<span class="params">callback</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;</span><br><span class="line">            nextResolve,</span><br><span class="line">            nextReject,</span><br><span class="line">            onFulfilled,</span><br><span class="line">            onRejected</span><br><span class="line">        &#125; = callback;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.status === <span class="built_in">Promise</span>.pending) &#123;</span><br><span class="line">            <span class="built_in">this</span>.callbacks.push(callback);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// if (this.status === Promise.onFulfilled &amp;&amp; onFulfilled) &#123;</span></span><br><span class="line">        <span class="comment">//     onFulfilled(this.value);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.status === <span class="built_in">Promise</span>.onFulfilled) &#123;</span><br><span class="line">            <span class="comment">// 没有传入 onFulfilled（回调事件） new Pronise() 没有调用 resolve() 将undefined 传入</span></span><br><span class="line">            <span class="comment">// const nextValue = onFulfilled ? onFulfilled(this.value) : undefined;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 传入存储的值</span></span><br><span class="line">            <span class="comment">// 未传入onFulfilled时，value传入</span></span><br><span class="line">            <span class="keyword">const</span> nextValue = onFulfilled ? onFulfilled(<span class="built_in">this</span>.value) : <span class="built_in">this</span>.value;</span><br><span class="line"></span><br><span class="line">            nextResolve(nextValue)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// if (this.status === Promise.onRejected &amp;&amp; onRejected) &#123;</span></span><br><span class="line">        <span class="comment">//     onRejected(this.reason);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.status === <span class="built_in">Promise</span>.onRejected) &#123;</span><br><span class="line">            <span class="comment">// const nextReason = onRejected ? onRejected(this.reason) : undefined;</span></span><br><span class="line">            <span class="keyword">const</span> nextReason = onRejected ? onRejected(<span class="built_in">this</span>.reason) : <span class="built_in">this</span>.reason;</span><br><span class="line"></span><br><span class="line">            nextReject(nextReason)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">then</span>(<span class="params">onFulfilled, onRejected</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 这里可以理解为在注册事件</span></span><br><span class="line">        <span class="comment">// 也就是将需要执行的回调函数存储起来</span></span><br><span class="line">        <span class="comment">// this.callbacks.push(&#123;</span></span><br><span class="line">        <span class="comment">//     onFulfilled,</span></span><br><span class="line">        <span class="comment">//     onRejected</span></span><br><span class="line">        <span class="comment">// &#125;)</span></span><br><span class="line">        <span class="comment">// !!!!这里之所以把下一个Promsie的resolve函数和reject函数也存在callback中</span></span><br><span class="line">        <span class="comment">// !!!!是为了将onFulfilled的执行结果通过nextResolve传入到下一个Promise作为它的value值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">nextResolve, nextReject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.playHandler(&#123;</span><br><span class="line">                nextResolve,</span><br><span class="line">                nextReject,</span><br><span class="line">                onFulfilled,</span><br><span class="line">                onRejected</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> success = <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// let success = true;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (success) &#123;</span><br><span class="line">            resolve(<span class="string">&#x27;一次resolve&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(<span class="string">&#x27;一次错误error&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data, <span class="string">&#x27;data&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                resolve(data + <span class="string">&#x27;resolve()调用新的Promise&#x27;</span>)</span><br><span class="line">            &#125;, <span class="number">1000</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// return &#x27;二次调用then&#x27;;</span></span><br><span class="line">&#125;, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error, <span class="string">&#x27;error&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;then-&gt; err&#x27;</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data, <span class="string">&#x27;链式调用then&#x27;</span>)</span><br><span class="line">&#125;, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error + <span class="string">&#x27;  链式调用reject()&#x27;</span>)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// then的第二个参数执行reject返回值</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * .then(()=&gt;&#123;&#125;,()=&gt;&#123;&#125;)</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -193,160 +198,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/Promise/setClassPromise/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/hexo/change/" class="archive-article-date">
-  	<time datetime="2021-02-24T09:25:19.795Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/hexo/change/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hexo语法吧</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hexo/change/">hexo语法吧</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E8%83%BD%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">不能链式调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%BD%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">能链式调用</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/javaScript/js/" class="archive-article-date">
-  	<time datetime="2021-02-24T09:05:04.124Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/javaScript/js/">js工具函数</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/hexo/themeSet/" class="archive-article-date">
-  	<time datetime="2021-02-03T07:17:42.346Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hexo/themeSet/">hexo主题配置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/hexo/hexoSet/" class="archive-article-date">
-  	<time datetime="2021-02-03T06:47:40.361Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/hexo/hexoSet/">hexo基本设置</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -369,8 +333,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
