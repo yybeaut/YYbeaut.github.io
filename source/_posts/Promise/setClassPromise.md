@@ -19,8 +19,14 @@ class Promise {
 
         // 存储then中传入的参数  数组是因为then方法可以多次调用
         this.callbacks = [];
-        executor(this._resolve.bind(this), this._reject.bind(this));
-
+        //         executor异常处理
+        // 当执行异步操作时有可能发生异常，需要try/catch捕获到异常，并使promise进入rejected状态
+        try {
+            executor(this._resolve.bind(this), this._reject.bind(this));
+        } catch (c) {
+            this._reject(error);
+            // throw new Error('error')
+        }
     }
     _resolve(value) {
         this.status = Promise.onFulfilled; // 将状态设置为成功
