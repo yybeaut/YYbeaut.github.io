@@ -1,6 +1,7 @@
 // 基本实现promise
 // neng链式调用
-// 链式调用原理本质是then 返回了一个new Promise()对象
+// 链式调用原理本质是then 返回了一个new Promise()对象 暂时无 .catch和其他方法
+//只实现 then链式调用
 
 class Promise {
     static pending = 'pending';
@@ -13,7 +14,14 @@ class Promise {
 
         // 存储then中传入的参数  数组是因为then方法可以多次调用
         this.callbacks = [];
-        executor(this._resolve.bind(this), this._reject.bind(this));
+        //         executor异常处理
+        // 当执行异步操作时有可能发生异常，需要try/catch捕获到异常，并使promise进入rejected状态
+        try {
+            executor(this._resolve.bind(this), this._reject.bind(this));
+        } catch (c) {
+            this._reject(error);
+            // throw new Error('error')
+        }
 
     }
     _resolve(value) {
@@ -93,6 +101,7 @@ class Promise {
         })
     }
 }
+
 let success = false;
 // let success = true;
 
@@ -119,7 +128,7 @@ new Promise(function(resolve, reject) {
     console.log(data, '链式调用then')
 }, error => {
     console.log(error + '  链式调用reject()')
-});
+});;
 // then的第二个参数执行reject返回值
 /**
  * .then(()=>{},()=>{})
