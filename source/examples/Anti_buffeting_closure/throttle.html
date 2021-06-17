@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper {
+            width: 100px;
+            height: 100px;
+            font-size: 40px;
+            background-color: #000;
+            line-height: 100px;
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">0</div>
+
+    <script>
+        var node = document.getElementById('wrapper');
+        var num = 0;
+        node.addEventListener('mousemove', throttle(addNum, 1000));
+
+        function addNum() {
+            node.innerHTML = num++;
+        }
+        // 节流
+        function throttle(func, wait) {
+            var timer;
+            return function() {
+                var that = this;
+                var arg = arguments;
+                if (timer) {
+                    return;
+                }
+                timer = setTimeout(function() {
+                    func.apply(that, arg);
+                    timer = null;
+                }, wait)
+            }
+        }
+    </script>
+</body>
+
+</html>
