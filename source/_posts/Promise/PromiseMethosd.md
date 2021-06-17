@@ -4,18 +4,18 @@ tag: promise
 # toc: true
 ---
 
-<!-- <a href = '#catch'>.catch()</a>
+<a href = '#catch'>.catch()</a>
 <a href = '#resolve'>.resolve()</a>
 <a href = '#reject'>.reject()</a>
 <a href = '#finally'>.finally()</a>
 <a href = '#all'>.all()</a>
 <a href = '#race'>.race()</a>
-<a href = '#any'>.any()</a> -->
+<a href = '#any'>.any()</a>
 
 
 <!-- more -->
 
-<!-- <div id = 'catch'></div> -->
+<div id = 'catch'></div>
 
 ##
 * ## .catch() 方法实现
@@ -29,7 +29,7 @@ Promise.prototype.catch = function(callback) {
 ```
 
 
-<!-- <div id = 'resolve'></div> -->
+<div id = 'resolve'></div>
 
 ##
 * ## Promise.resolve() 实际上调用的是 new Promise()；并且调用 resolve();
