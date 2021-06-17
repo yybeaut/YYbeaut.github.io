@@ -4,6 +4,7 @@ tag: promise
 toc: true
 ---
 
+
 基本实现promise
 <!-- more -->
 ## 不能链式调用
