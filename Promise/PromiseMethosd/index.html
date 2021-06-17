@@ -8,15 +8,13 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>promise 的方法 | YUANYUAN-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content=".catch().resolve().reject().finally().all().race().any()">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="promise 的方法">
 <meta property="og:url" content="http://example.com/Promise/PromiseMethosd/">
 <meta property="og:site_name" content="YUANYUAN-BLOG">
-<meta property="og:description" content=".catch().resolve().reject().finally().all().race().any()">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-06T15:10:16.387Z">
-<meta property="article:modified_time" content="2021-03-08T12:13:25.232Z">
+<meta property="article:modified_time" content="2021-06-17T17:50:28.562Z">
 <meta property="article:author" content="xxx">
 <meta property="article:tag" content="promise">
 <meta name="twitter:card" content="summary">
@@ -167,10 +165,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href = '#catch'>.catch()</a><br><a href = '#resolve'>.resolve()</a><br><a href = '#reject'>.reject()</a><br><a href = '#finally'>.finally()</a><br><a href = '#all'>.all()</a><br><a href = '#race'>.race()</a><br><a href = '#any'>.any()</a></p>
+        <!-- <a href = '#catch'>.catch()</a>
+<a href = '#resolve'>.resolve()</a>
+<a href = '#reject'>.reject()</a>
+<a href = '#finally'>.finally()</a>
+<a href = '#all'>.all()</a>
+<a href = '#race'>.race()</a>
+<a href = '#any'>.any()</a> -->
+
+
 <a id="more"></a>
 
-<div id = 'catch'></div>
+<!-- <div id = 'catch'></div> -->
 
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><ul>
 <li><h2 id="catch-方法实现"><a href="#catch-方法实现" class="headerlink" title=".catch() 方法实现"></a>.catch() 方法实现</h2></li>
@@ -178,7 +184,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.prototype.catch = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.then(<span class="literal">null</span>, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<div id = 'resolve'></div>
+<!-- <div id = 'resolve'></div> -->
 
 <h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><ul>
 <li><h2 id="Promise-resolve-实际上调用的是-new-Promise-；并且调用-resolve"><a href="#Promise-resolve-实际上调用的是-new-Promise-；并且调用-resolve" class="headerlink" title="Promise.resolve() 实际上调用的是 new Promise()；并且调用 resolve();"></a>Promise.resolve() 实际上调用的是 new Promise()；并且调用 resolve();</h2></li>
@@ -296,19 +302,6 @@
         </div>
         
         
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#catch-%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">.catch() 方法实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-number">3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-resolve-%E5%AE%9E%E9%99%85%E4%B8%8A%E8%B0%83%E7%94%A8%E7%9A%84%E6%98%AF-new-Promise-%EF%BC%9B%E5%B9%B6%E4%B8%94%E8%B0%83%E7%94%A8-resolve"><span class="toc-number">4.</span> <span class="toc-text">Promise.resolve() 实际上调用的是 new Promise()；并且调用 resolve();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-number">5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-reject-%E5%AE%9E%E9%99%85%E4%B8%8A%E8%B0%83%E7%94%A8%E7%9A%84%E6%98%AF-new-Promise-%EF%BC%9B%E5%B9%B6%E4%B8%94%E8%B0%83%E7%94%A8-reject"><span class="toc-number">6.</span> <span class="toc-text">Promise.reject() 实际上调用的是 new Promise()；并且调用 reject();</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-3"><span class="toc-number">7.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-finally-%E6%97%A0%E8%AE%BA%E6%88%90%E5%8A%9F%E6%88%96%E8%80%85%E5%A4%B1%E8%B4%A5%E9%83%BD%E4%BC%9A%E6%89%A7%E8%A1%8C"><span class="toc-number">8.</span> <span class="toc-text">Promise.finally() 无论成功或者失败都会执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-4"><span class="toc-number">9.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-all"><span class="toc-number">10.</span> <span class="toc-text">Promise.all()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-5"><span class="toc-number">11.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-race"><span class="toc-number">12.</span> <span class="toc-text">Promise.race()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-6"><span class="toc-number">13.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#any"><span class="toc-number">14.</span> <span class="toc-text">any()</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
     </div>
 </aside>
 
@@ -416,6 +409,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">promise</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">

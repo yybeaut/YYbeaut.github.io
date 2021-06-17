@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>YUANYUAN-BLOG</title>
+  <title>cookie 相关 | YUANYUAN-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Document        --- title: 随笔1 ---">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YUANYUAN-BLOG">
-<meta property="og:url" content="http://example.com/tags/%E9%9A%8F%E7%AC%94/">
+  <meta name="description" content="request header 中添加了cookie字段cookie基本通信流程：设置cookie &#x3D;&gt; 添加到 request header 中 &#x3D;&gt; 服务端接收到cookie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cookie 相关">
+<meta property="og:url" content="http://example.com/cookie/understandCookie/">
 <meta property="og:site_name" content="YUANYUAN-BLOG">
-<meta property="og:description" content="Document        --- title: 随笔1 ---">
+<meta property="og:description" content="request header 中添加了cookie字段cookie基本通信流程：设置cookie &#x3D;&gt; 添加到 request header 中 &#x3D;&gt; 服务端接收到cookie">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-08T12:22:23.266Z">
-<meta property="article:modified_time" content="2021-03-08T12:22:23.266Z">
+<meta property="og:image" content="http://example.com/path/cookie%E5%AD%98%E5%9C%A8%E7%8E%B0%E8%B1%A1.png">
+<meta property="article:published_time" content="2021-03-18T08:13:35.419Z">
+<meta property="article:modified_time" content="2021-03-18T09:49:13.967Z">
 <meta property="article:author" content="xxx">
+<meta property="article:tag" content="http">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/path/cookie%E5%AD%98%E5%9C%A8%E7%8E%B0%E8%B1%A1.png">
   
     <link rel="alternative" href="/atom.xml" title="YUANYUAN-BLOG" type="application/atom+xml">
   
@@ -146,26 +149,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-cookie/understandCookie" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cookie 相关
+    </h1>
+  
+
+        
+        <a href="/cookie/understandCookie/" class="archive-article-date">
+  	<time datetime="2021-03-18T08:13:35.419Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-18</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html>
-<html lang="en">
+        <p>request header 中添加了cookie字段<br>cookie基本通信流程：设置cookie =&gt; 添加到 request header 中 =&gt; 服务端接收到cookie</p>
+<a id="more"></a>
+<p><img src="/path/cookie%E5%AD%98%E5%9C%A8%E7%8E%B0%E8%B1%A1.png" alt="cookie存在现象">;</p>
+<p>什么样的数据适合放在cookie中？</p>
+<p>cookie是怎么设置的？</p>
+<p>cookie为什么会自动加到request header中？</p>
+<p>cookie怎么增删查改？</p>
+<p>存储cookie是浏览器提供的功能。cookie 其实是存储在浏览器中的纯文本，浏览器的安装目录下会专门有一个 cookie 文件夹来存放各个域下设置的cookie</p>
+<h3 id="cookie工作方式"><a href="#cookie工作方式" class="headerlink" title="cookie工作方式"></a>cookie工作方式</h3><p>  网页发起http网页请求的时候，浏览器会先检查是否有相应的cookie，有则自动添加再request header的cookie字段中。每一次浏览器都会帮我们做。<br>  存放在cookie中的数据每次都会被浏览器自动放入http请求中，如果不是都需要发送给服务端的就会增加网络开销。</p>
+<ul>
+<li><h4 id="每个域名下的cookie的大小最大为4KB，每个域名下的cookie数量最多为20个-但很多浏览器厂商在具体实现时支持大于20个）"><a href="#每个域名下的cookie的大小最大为4KB，每个域名下的cookie数量最多为20个-但很多浏览器厂商在具体实现时支持大于20个）" class="headerlink" title="每个域名下的cookie的大小最大为4KB，每个域名下的cookie数量最多为20个(但很多浏览器厂商在具体实现时支持大于20个）"></a>每个域名下的cookie的大小最大为4KB，每个域名下的cookie数量最多为20个(但很多浏览器厂商在具体实现时支持大于20个）</h4></li>
+</ul>
+<h3 id="cookie格式"><a href="#cookie格式" class="headerlink" title="cookie格式"></a>cookie格式</h3><p>js原生API提供：document.cookie</p>
+<ul>
+<li>只能获取非 HttpOnly类型的cookie</li>
+<li>由键值对 key=value 组成，键值对之间由一个<strong>分号</strong>和<strong>空格</strong>组成。</li>
+</ul>
+<h2 id="cookie的属性"><a href="#cookie的属性" class="headerlink" title="cookie的属性"></a>cookie的属性</h2><ul>
+<li><h2 id="expires-："><a href="#expires-：" class="headerlink" title="expires ："></a>expires ：</h2><strong>设置cookie什么时间内有效</strong><br>是cookie的失效日期，必须是GMT格式的时间。<br><code>new Date().toGMTString()</code><br><code>new Date().toUTCString()</code>两种方式获得<br>设置时间之后失效的cookie浏览器会清空，没有设置默认为<strong>session</strong>-&gt;这种为会话cookie，浏览器关闭后就没有了。<br>expires 是 http/1.0协议中的选项: 值是一个时间点，（cookie失效时刻= expires）默认值 session<br>max-age 是 http/1.1协议中选项，已经替代expires：以秒为单位时间段（cookie失效时刻= 创建时刻+ max-age）默认值 -1<br>max-age： <ul>
+<li>负数：有效期session；</li>
+<li>0：删除cookie；</li>
+<li>正数：有效期为创建时刻+ max-age</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h2 id="domain"><a href="#domain" class="headerlink" title="domain:"></a>domain:</h2><p>域名： 的默认值为设置该cookie的网页所在的域名</p>
+</li>
+<li><h2 id="path："><a href="#path：" class="headerlink" title="path："></a>path：</h2><p>路径：path默认值为设置该cookie的网页所在的目录</p>
+</li>
+</ul>
+<p>domain是域名，path是路径，两者加起来就构成了 URL，domain和path一起来限制 cookie 能被哪些 URL 访问<br>2个选项共同决定了cookie何时被浏览器自动添加到请求头部中发送出去。如果没有设置这两个选项，则会使用默认值</p>
+<ul>
+<li><h2 id="secure："><a href="#secure：" class="headerlink" title="secure："></a>secure：</h2><p>cookie只在确保安全的请求中才会发送<br>默认情况下cookie为空，当请求是HTTPS或者其他安全协议时，包含 secure 选项的 cookie 才能被发送至服务器<br>客户端即网页中通过 js 去设置secure类型的 cookie，必须保证网页是https协议的。在http协议的网页中是无法设置secure类型cookie的</p>
+</li>
+<li><h2 id="HttpOnly："><a href="#HttpOnly：" class="headerlink" title="HttpOnly："></a>HttpOnly：</h2><p>在客户端是不能通过js代码去设置一个httpOnly类型的cookie的，这种类型的cookie只能通过服务端来设置<br>默认情况下，客户端是可以通过js代码去访问（包括读取、修改、删除等）这个cookie的。当cookie带httpOnly选项时，客户端则无法通过js代码去访问（包括读取、修改、删除等）这个cookie</p>
+</li>
+<li><p>*** 任何 cookie 都能被客户端通过document.cookie获取会发生安全问题</p>
+</li>
+</ul>
+<h3 id="设置cookie"><a href="#设置cookie" class="headerlink" title="设置cookie"></a>设置cookie</h3><p>服务端设置：</p>
+<ul>
+<li>服务器返回response-headers中有一项叫set-cookie，是服务端专门用来设置cookie的。</li>
+<li>一个set-Cookie字段只能设置一个cookie，当你要想设置多个 cookie，需要添加同样多的set-Cookie字段。</li>
+<li>可以设置cookie的所有选项<br>客户端设置：</li>
+<li>设置cookie 的下列选项：expires、domain、path、secure（有条件：只有在https协议的网页中，客户端设置secure类型的 cookie 才能成功），但无法设置HttpOnly选项</li>
+<li>设置多个cookie重复执行 <code>document.cookie = &quot;key=value&quot;</code></li>
+</ul>
+<h3 id="修改删除"><a href="#修改删除" class="headerlink" title="修改删除"></a>修改删除</h3><p>修改：</p>
+<ul>
+<li>重新赋值就行，旧的值会被新的值覆盖</li>
+<li>path/domain这几个选项一定要旧cookie 保持一样 否则是新添加了一个cookie<br>删除：</li>
+<li>重新赋值，将新cookie的expires 选项设置为一个过去的时间点</li>
+<li>path/domain/这几个选项一定要旧cookie 保持一样</li>
+</ul>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    --- title: 随笔1 ---
-</body>
-
-</html>
       
 
       
@@ -173,6 +232,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -184,6 +254,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/interview/dontKnow/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          相关整理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/http/httpCompare/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTTP1/HTTP2/HTTP3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -234,7 +323,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

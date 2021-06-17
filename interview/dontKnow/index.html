@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>YUANYUAN-BLOG</title>
+  <title>相关整理 | YUANYUAN-BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Document                 promise         实现new Promise().then         new Promise() 其他方法                      .catch()             .resolve()             .reject()             .">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YUANYUAN-BLOG">
-<meta property="og:url" content="http://example.com/examples/Promise/">
+  <meta name="description" content="1.js的各种位置，比如 clientHeight,scrollHeight,offsetHeight,以及scrollTop,offsetTop,clientTop的区别？2.js拖拽功能的实现？3.Ajax解决浏览器缓存问题？4.eval是做什么的？5.CommonJs，AMD，CMD？6.对象深度克隆？7.js监听对象属性变化？8.实现一个私有变量，用getName方法可以访问，不能直接访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相关整理">
+<meta property="og:url" content="http://example.com/interview/dontKnow/">
 <meta property="og:site_name" content="YUANYUAN-BLOG">
-<meta property="og:description" content="Document                 promise         实现new Promise().then         new Promise() 其他方法                      .catch()             .resolve()             .reject()             .">
+<meta property="og:description" content="1.js的各种位置，比如 clientHeight,scrollHeight,offsetHeight,以及scrollTop,offsetTop,clientTop的区别？2.js拖拽功能的实现？3.Ajax解决浏览器缓存问题？4.eval是做什么的？5.CommonJs，AMD，CMD？6.对象深度克隆？7.js监听对象属性变化？8.实现一个私有变量，用getName方法可以访问，不能直接访问">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-08T11:53:57.742Z">
-<meta property="article:modified_time" content="2021-03-08T11:53:57.742Z">
+<meta property="article:published_time" content="2021-03-19T11:30:57.894Z">
+<meta property="article:modified_time" content="2021-03-20T14:15:53.012Z">
 <meta property="article:author" content="xxx">
 <meta name="twitter:card" content="summary">
   
@@ -146,43 +146,31 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-interview/dontKnow" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      相关整理
+    </h1>
+  
+
+        
+        <a href="/interview/dontKnow/" class="archive-article-date">
+  	<time datetime="2021-03-19T11:30:57.894Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-19</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!DOCTYPE html>
-<html lang="en">
+        <p>1.js的各种位置，比如 clientHeight,scrollHeight,offsetHeight,以及scrollTop,offsetTop,clientTop的区别？<br>2.js拖拽功能的实现？<br>3.Ajax解决浏览器缓存问题？<br>4.eval是做什么的？<br>5.CommonJs，AMD，CMD？<br>6.对象深度克隆？<br>7.js监听对象属性变化？<br>8.实现一个私有变量，用getName方法可以访问，不能直接访问？<br>9.Object.is？<br>  主要区别就是+0 ！= -0 而 NaN == NaN、？？？？？？？？？？？<br>10.setTimeout、setInterval、requestAnimationFrame 之间的区别？<br>11.js怎么控制一次加载一张图片，加载完再加载下一张？<br>12.如何实现cleep的效果？？？？？？（es5或者es6）<br>13.实现js中所有对象的深度克隆（包装对象，Date对象，正则对象）<br>14.实现Node的Events模块？<br>15.js判断类型？<br>16.事件代理在捕获阶段的实际应用？<br>17.如何判断一个数组（typeof不对！！！！！）<br>18.js实现跨域<br>19.js的全排列<br>20.跨域原理<br>21.写深度拷贝<br>22.什么是虚拟dom<br>23.ant-design<br>24.js中继承的几种方式 ======整理一下<br>25.Vue生命周期<br>26.介绍 symbol<br>27.js原型链，原型链的顶端是什么？Object的原型是什么？Object的原型的原型是什么？在数组原型链上实现删除数组重复数据的方法？<br>28.promise+Generator+Async的使用<br>29.事件委托和冒泡原理（阻止冒泡阻止捕获）<br>30.ES6箭头函数的特性<br>31.setTomeout和promise的执行顺序<br>32.怎么获得对象上的属性：比如Object.key()？<br>33.ES6的新特性？<br>34.知道private和public？？？？？？？？？？？<br>35.async 和 await 具体怎么用？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      resolve(<span class="string">&#x27;resolved&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;calling&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">await</span> resolveAfter2Seconds();</span><br><span class="line">  <span class="built_in">console</span>.log(result);</span><br><span class="line">  <span class="comment">// expected output: &quot;resolved&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>async function asyncCall() {<br>  console.log(‘calling’);<br>  const result = await resolveAfter2Seconds();<br>  console.log(result);<br>  // expected output: “resolved”<br>}<br>36.实现一个计算：一年中有多少周？<br>37.面向对象的继承方式？<br>38.assign 深拷贝<br>39.dom的api<br>40.PWA<br>41.rem、em 、px、%、vm、vh、vw这些单位区别<br>42.vm单位换算<br>43.移动端适配1px问题<br>44.<a target="_blank" rel="noopener" href="https://blog.csdn.net/tangxiujiang/article/details/79791545">移动端性能优化相关：</a><br>45.toB 和 toC项目的区别<br>46.移动端兼容性<br>47.2X图和3X图适配<br>48.图片在安卓上有设备模糊问题<br>49.固定定位布局键盘挡住输入框内容<br>50.点击穿透问题<br>51.phone和ipad下输入框默认内阴影<br>52.防止手机中页面放大和缩小<br>53.移动端适配-dpr浅析<br>54.上下拉滚动条时候慢、卡顿<br>55.长时间按页面出现闪退<br>56.ios和android下触摸元素时出现半透明灰色遮罩<br>57.transition闪屏、圆角bug<br>58.git工作流<br>58.rebase和merge的区别<br>58.git reset、git revert、git checkout、有什么区别？<br>58.webpack和gulp区别<br>59.vue监听键盘事件<br>60.删除数组用detele和Vue.detele有什么区别？<br>61.axios是什么？怎么使？怎么跨域？<br>62.怎么在vue项目中引入第三方库比如jq，有哪些方法可以做到？？？<br>63.vue里面的Proxy API？？？为什么用这个代替 defineProperty API？？？<br>64.Vue3.0？？？？？？怎么变得更快的？（底层源码）<br>65.理解proxy？？<br>66.redux ？？？<br>67.react性能优化使哪个周期？<br>68.为什么虚拟dom会提升性能/////已知<br>69.diff 算法<br>70.react在哪里发起ajax请求<br>关于常用的http请求头以及响应头详解</p>
+<p>实现Object.create<br>实现instanceof的作用<br>实现单例模式 核心要点: 用闭包和Proxy属性拦截<br>实现数组的flat<br>用发布订阅模式实现EventEmit<br>使用ES5实现类的继承效果</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <div>
-        <h4>promise</h4>
-        <h4>实现new Promise().then</h4>
-        <h4>new Promise() 其他方法</h4>
-        <ul>
-            <li>.catch()</li>
-            <li>.resolve()</li>
-            <li>.reject()</li>
-            <li>.finally()</li>
-            <li>.all()</li>
-            <li>.race()</li>
-            <li>.any()</li>
-        </ul>
-    </div>
-    <!-- <script src="./promise.js"></script> -->
-    <script src="./thenPromise.js"></script>
-    <script src="./promiseMethods.js"></script>
-    <script src="./index.js"></script>
-</body>
-
-</html>
       
 
       
@@ -201,6 +189,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/cookie/understandCookie/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cookie 相关</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -251,7 +249,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
@@ -322,6 +320,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">promise</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
